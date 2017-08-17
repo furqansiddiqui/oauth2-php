@@ -28,6 +28,12 @@ class Google extends AbstractVendor
             ]);
     }
 
+    /**
+     * @param array $input
+     * @param string $redirectURI
+     * @return Profile
+     * @throws GoogleException
+     */
     public function requestProfile(array $input, string $redirectURI): Profile
     {
         $accessToken    =   $this->code2Token($input["code"] ?? "", $redirectURI);
@@ -101,11 +107,11 @@ class Google extends AbstractVendor
             ->accept("json")
             ->send();
 
-        if($accessTokenRequest->responseCode()    !== 200) {
+        /*if($accessTokenRequest->responseCode()    !== 200) {
             throw new GoogleException(
                 sprintf('Unexpected HTTP response code %1$d', $accessTokenRequest->responseCode())
             );
-        }
+        }*/
 
         $response   =   $this->getResponse($accessTokenRequest);
         $accessToken    =   $response["access_token"] ?? null;
