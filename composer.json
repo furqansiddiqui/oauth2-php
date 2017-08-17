@@ -1,0 +1,15 @@
+{
+  "name": "furqansiddiqui/oauth2",
+  "type": "library",
+  "description": "OAuth2",
+  "keywords": ["oauth","oauth2"],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OAuth2\\": ["src/OAuth2"]
+    }
+  }
+}
