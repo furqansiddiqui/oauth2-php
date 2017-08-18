@@ -45,12 +45,6 @@ class Google extends AbstractVendor
             ->accept("json")
             ->send();
 
-        if($googleProfile->responseCode()   !== 200) {
-            throw new GoogleException(
-                sprintf('Unexpected HTTP response code %1$d while fetching profile', $googleProfile->responseCode())
-            );
-        }
-
         $googleProfile  =   $this->getResponse($googleProfile);
 
         $errorMessage   =   $googleProfile["error"]["message"] ?? null;
@@ -65,9 +59,9 @@ class Google extends AbstractVendor
 
         $profile    =   new Profile($accessToken);
         $profile->id    =   $googleProfileId;
-        $profile->email =   $profile["emails"][0]["value"] ?? null;
-        $profile->firstName =   $profile["name"]["givenName"] ?? null;
-        $profile->lastName  =   $profile["name"]["familyName"] ?? null;
+        $profile->email =   $googleProfile["emails"][0]["value"] ?? null;
+        $profile->firstName =   $googleProfile["name"]["givenName"] ?? null;
+        $profile->lastName  =   $googleProfile["name"]["familyName"] ?? null;
 
         return $profile;
     }
@@ -107,13 +101,12 @@ class Google extends AbstractVendor
             ->accept("json")
             ->send();
 
-        /*if($accessTokenRequest->responseCode()    !== 200) {
-            throw new GoogleException(
-                sprintf('Unexpected HTTP response code %1$d', $accessTokenRequest->responseCode())
-            );
-        }*/
-
         $response   =   $this->getResponse($accessTokenRequest);
+        $errorMessage   =   $response["error_description"] ?? null;
+        if(is_string($errorMessage)) {
+            throw new GoogleException(sprintf('%1$s: %2$s', __METHOD__, $errorMessage));
+        }
+
         $accessToken    =   $response["access_token"] ?? null;
         if(!is_string($accessToken)) {
             throw new GoogleException('Failed to retrieve "access_token"');

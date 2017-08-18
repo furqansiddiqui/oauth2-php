@@ -57,7 +57,6 @@ class Facebook extends AbstractVendor
                 "access_token"  =>  $this->accessToken
             ])
         )->checkSSL(true)
-            ->accept("json")
             ->send();
 
         $response   =   $this->getResponse($requestProfile);
@@ -110,8 +109,7 @@ class Facebook extends AbstractVendor
                 "redirect_uri"  =>  $redirectURI,
                 "code"  =>  $code
             ])
-        )->accept("json")
-            ->checkSSL(true)
+        )->checkSSL(true)
             ->send();
 
         $response   =   $this->getResponse($accessTokenRequest);
@@ -155,7 +153,6 @@ class Facebook extends AbstractVendor
                 "access_token"  =>  sprintf('%s|%s', $this->appId, $this->appSecret)
             ])
         )->checkSSL(true)
-            ->accept("json")
             ->send();
 
         if($debugRequest->responseCode()    !== 200) {
