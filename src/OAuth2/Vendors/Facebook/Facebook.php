@@ -23,7 +23,7 @@ class Facebook extends AbstractVendor
      */
     public static function AuthenticateURL(string $appId, string $redirectURI): string
     {
-        return "https://www.facebook.com/v2.8/dialog/oauth?" . http_build_query([
+        return "https://www.facebook.com/v2.10/dialog/oauth?" . http_build_query([
                 "client_id" =>  $appId,
                 "redirect_uri"  =>  $redirectURI,
                 "scope" =>  "public_profile,email"
