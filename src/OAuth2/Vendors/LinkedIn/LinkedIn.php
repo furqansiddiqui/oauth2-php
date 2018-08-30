@@ -58,20 +58,31 @@ class LinkedIn extends AbstractVendor
     {
         $accessToken = $this->code2Token(strval($input["code"] ?? ""), $redirectURI);
         $linkedInProfile = HttpClient::Get(
-            "http://api.linkedin.com/v1/people/~" . http_build_query([
-                "access_token" => $accessToken
-            ])
+            "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)"
         );
+        $linkedInProfile->header("Authorization", "Bearer " . $accessToken);
+        $linkedInProfile->header("x-li-format", "json");
         $linkedInProfile->ssl()->verify(true);
         $linkedInProfile = $linkedInProfile->send();
 
         $linkedInProfile = $this->getResponse($linkedInProfile);
-        $errorMessage = $linkedInProfile["error_description"] ?? null;
+        $errorMessage = $linkedInProfile["message"] ?? null;
         if (is_string($errorMessage)) {
             throw new LinkedInException(sprintf('%1$s: %2$s', __METHOD__, urldecode($errorMessage)));
         }
 
-        var_dump($linkedInProfile);
+        $linkedInProfileId = $linkedInProfile["id"] ?? null;
+        if (!is_string($linkedInProfileId)) {
+            throw new LinkedInException('LinkedIn profile ID was not received');
+        }
+
+        $profile = new Profile($linkedInProfileId);
+        $profile->id = $linkedInProfileId;
+        $profile->email = $linkedInProfile["emailAddress"] ?? null;
+        $profile->firstName = $linkedInProfile["firstName"] ?? null;
+        $profile->lastName = $linkedInProfile["lastName"] ?? null;
+
+        return $profile;
     }
 
     /**
@@ -92,11 +103,11 @@ class LinkedIn extends AbstractVendor
                 "client_secret" => $this->appSecret,
                 "redirect_uri" => $redirectURI,
                 "grant_type" => "authorization_code"
-            ])->json();
+            ]);
         $accessTokenRequest->ssl()->verify(true);
         $accessTokenRequest = $accessTokenRequest->send();
-
         $response = $this->getResponse($accessTokenRequest);
+
         $errorMessage = $response["error_description"] ?? null;
         if (is_string($errorMessage)) {
             throw new LinkedInException(sprintf('%1$s: %2$s', __METHOD__, $errorMessage));
