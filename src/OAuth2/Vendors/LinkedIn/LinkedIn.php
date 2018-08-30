@@ -27,7 +27,7 @@ class LinkedIn extends AbstractVendor
                 "client_id" => $appId,
                 "redirect_uri" => $redirectURI,
                 "state" => time(),
-                "scope" => "r_fullprofile%20r_emailaddress"
+                "scope" => "r_basicprofile r_emailaddress"
             ]);
     }
 
@@ -61,7 +61,7 @@ class LinkedIn extends AbstractVendor
             "http://api.linkedin.com/v1/people/~" . http_build_query([
                 "access_token" => $accessToken
             ])
-        )->json();
+        );
         $linkedInProfile->ssl()->verify(true);
         $linkedInProfile = $linkedInProfile->send();
 
