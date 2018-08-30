@@ -1,5 +1,8 @@
 [Tt]humbs.db
 .DS_Store
+composer.phar
+composer.lock
+vendor/
 
 ### JetBrains ###
 .idea/**/workspace.xml

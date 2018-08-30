@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace OAuth2\Vendors;
 
-use HttpClient\Response;
+use HttpClient\Response\HttpClientResponse;
 use OAuth2\Profile;
 
 /**
  * Class AbstractVendor
- * @package OAuth2
+ * @package OAuth2\Vendors
  */
 abstract class AbstractVendor
 {
@@ -36,10 +36,10 @@ abstract class AbstractVendor
     abstract public function requestProfile(array $input, string $redirectURI) : Profile;
 
     /**
-     * @param Response $response
+     * @param HttpClientResponse $response
      * @return array
      */
-    abstract protected function getResponse(Response $response) : array;
+    abstract protected function getResponse(HttpClientResponse $response) : array;
 
     /**
      * @param string $appId

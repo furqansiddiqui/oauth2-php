@@ -10,7 +10,7 @@ Integrate OAuth 2.0 directly in your app to receive user's first name, last name
 ## Prerequisites
 
 * PHP 7.0+
-* [furqansiddiqui/**http-client**](https://github.com/furqansiddiqui/http-client) >= 0.2.1
+* [furqansiddiqui/**http-client**](https://github.com/furqansiddiqui/http-client) >= 0.3.0
 
 ## Installation
 

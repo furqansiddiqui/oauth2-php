@@ -26,6 +26,6 @@ class Profile
      */
     public function __construct(string $accessToken = null)
     {
-        $this->accessToken  =   $accessToken;
+        $this->accessToken = $accessToken;
     }
 }
