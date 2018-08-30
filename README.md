@@ -6,11 +6,12 @@ Integrate OAuth 2.0 directly in your app to receive user's first name, last name
 
 * Facebook
 * Google+
+* LinkedIn
 
 ## Prerequisites
 
-* PHP 7.0+
-* [furqansiddiqui/**http-client**](https://github.com/furqansiddiqui/http-client) >= 0.3.0
+* PHP 7.1+
+* [furqansiddiqui/**http-client**](https://github.com/furqansiddiqui/http-client) >= 0.3.1
 
 ## Installation
 
