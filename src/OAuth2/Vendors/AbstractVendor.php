@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace OAuth2\Vendors;
+namespace FurqanSiddiqui\OAuth2\Vendors;
 
+use FurqanSiddiqui\OAuth2\Profile;
 use HttpClient\Response\HttpClientResponse;
-use OAuth2\Profile;
 
 /**
  * Class AbstractVendor
- * @package OAuth2\Vendors
+ * @package FurqanSiddiqui\OAuth2\Vendors
  */
 abstract class AbstractVendor
 {
     /** @var string */
-    protected $appId;
+    protected string $appId;
     /** @var string */
-    protected $appSecret;
+    protected string $appSecret;
 
     /**
      * AbstractVendor constructor.
@@ -24,8 +24,8 @@ abstract class AbstractVendor
      */
     public function __construct(string $appId, string $appSecret)
     {
-        $this->appId    =   $appId;
-        $this->appSecret    =   $appSecret;
+        $this->appId = $appId;
+        $this->appSecret = $appSecret;
     }
 
     /**
@@ -33,18 +33,18 @@ abstract class AbstractVendor
      * @param string $redirectURI
      * @return Profile
      */
-    abstract public function requestProfile(array $input, string $redirectURI) : Profile;
+    abstract public function requestProfile(array $input, string $redirectURI): Profile;
 
     /**
      * @param HttpClientResponse $response
      * @return array
      */
-    abstract protected function getResponse(HttpClientResponse $response) : array;
+    abstract protected function getResponse(HttpClientResponse $response): array;
 
     /**
      * @param string $appId
      * @param string $redirectURI
      * @return string
      */
-    abstract public static function AuthenticateURL(string $appId, string $redirectURI) : string;
+    abstract public static function AuthenticateURL(string $appId, string $redirectURI): string;
 }

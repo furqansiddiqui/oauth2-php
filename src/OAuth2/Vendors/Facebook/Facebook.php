@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace OAuth2\Vendors\Facebook;
+namespace FurqanSiddiqui\OAuth2\Vendors\Facebook;
 
+use FurqanSiddiqui\OAuth2\Profile;
+use FurqanSiddiqui\OAuth2\Vendors\AbstractVendor;
 use HttpClient\HttpClient;
 use HttpClient\Response;
-use OAuth2\Profile;
-use OAuth2\Vendors\AbstractVendor;
 
 /**
  * Class Facebook
@@ -15,7 +15,7 @@ use OAuth2\Vendors\AbstractVendor;
 class Facebook extends AbstractVendor
 {
     /** @var string|null */
-    private $accessToken;
+    private ?string $accessToken = null;
 
     /**
      * @param string $appId
@@ -145,7 +145,7 @@ class Facebook extends AbstractVendor
      */
     private function hasToken(): bool
     {
-        return !empty($this->accessToken) ? true : false;
+        return !empty($this->accessToken);
     }
 
     /**

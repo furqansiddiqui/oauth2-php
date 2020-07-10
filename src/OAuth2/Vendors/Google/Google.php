@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace OAuth2\Vendors\Google;
+namespace FurqanSiddiqui\OAuth2\Vendors\Google;
 
+use FurqanSiddiqui\OAuth2\Profile;
+use FurqanSiddiqui\OAuth2\Vendors\AbstractVendor;
 use HttpClient\HttpClient;
 use HttpClient\Response;
-use OAuth2\Profile;
-use OAuth2\Vendors\AbstractVendor;
 
 /**
  * Class Google
- * @package OAuth2\Vendors\Google
+ * @package FurqanSiddiqui\OAuth2\Vendors\Google
  */
 class Google extends AbstractVendor
 {
@@ -37,6 +37,7 @@ class Google extends AbstractVendor
      * @throws \HttpClient\Exception\HttpClientException
      * @throws \HttpClient\Exception\RequestException
      * @throws \HttpClient\Exception\ResponseException
+     * @throws \HttpClient\Exception\SSLException
      */
     public function requestProfile(array $input, string $redirectURI): Profile
     {

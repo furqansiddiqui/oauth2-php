@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace OAuth2\Vendors\LinkedIn;
+namespace FurqanSiddiqui\OAuth2\Vendors\LinkedIn;
 
+use FurqanSiddiqui\OAuth2\Profile;
+use FurqanSiddiqui\OAuth2\Vendors\AbstractVendor;
 use HttpClient\HttpClient;
 use HttpClient\Response\HttpClientResponse;
 use HttpClient\Response\JSONResponse;
-use OAuth2\Profile;
-use OAuth2\Vendors\AbstractVendor;
 
 /**
  * Class LinkedIn
- * @package OAuth2\Vendors\LinkedIn
+ * @package FurqanSiddiqui\OAuth2\Vendors\LinkedIn
  */
 class LinkedIn extends AbstractVendor
 {

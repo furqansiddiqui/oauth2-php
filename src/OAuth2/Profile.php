@@ -1,24 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace OAuth2;
+namespace FurqanSiddiqui\OAuth2;
 
 /**
  * Class Profile
- * @package OAuth2
+ * @package FurqanSiddiqui\OAuth2
  */
 class Profile
 {
     /** @var string|null */
-    private $accessToken;
+    private ?string $accessToken;
     /** @var string|null */
-    public $id;
+    public ?string $id = null;
     /** @var string|null */
-    public $email;
+    public ?string $email = null;
     /** @var string|null */
-    public $firstName;
+    public ?string $firstName = null;
     /** @var string|null */
-    public $lastName;
+    public ?string $lastName = null;
 
     /**
      * Profile constructor.
