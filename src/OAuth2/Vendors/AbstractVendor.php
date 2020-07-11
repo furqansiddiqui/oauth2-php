@@ -29,6 +29,39 @@ abstract class AbstractVendor
     }
 
     /**
+     * @return array|string[]
+     */
+    public function __debugInfo(): array
+    {
+        return [get_called_class() . " OAuth2.0 Credentials"];
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppId(): string
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppSecret(): string
+    {
+        return $this->appSecret;
+    }
+
+    /**
+     * @param string $redirectURI
+     * @return string
+     */
+    public function getAuthURL(string $redirectURI): string
+    {
+        return $this->AuthenticateURL($this->appId, $redirectURI);
+    }
+
+    /**
      * @param array $input
      * @param string $redirectURI
      * @return Profile
