@@ -43,7 +43,8 @@ class Google extends AbstractVendor
     {
         $accessToken = $this->code2Token($input["code"] ?? "", $redirectURI);
         $googleProfile = HttpClient::Get(
-            "https://www.googleapis.com/plus/v1/people/me?" . http_build_query([
+            "https://people.googleapis.com/v1/people/me?" . http_build_query([
+                "personFields" => "emailAddresses,names,locales",
                 "access_token" => $accessToken
             ])
         )->json();
@@ -56,16 +57,20 @@ class Google extends AbstractVendor
             throw new GoogleException(sprintf('%1$s: %2$s', __METHOD__, $errorMessage));
         }
 
-        $googleProfileId = $googleProfile["id"] ?? null;
-        if (!is_string($googleProfileId)) {
+        $resourceName = $googleProfile["resourceName"] ?? null;
+        if (!is_string($resourceName) || !preg_match('/^profile\/[0-9]+$/', $resourceName)) {
+            $googleProfileId = explode("/", $resourceName)[1];
+        }
+
+        if (!isset($googleProfileId) || !is_string($googleProfileId) || !$googleProfileId) {
             throw new GoogleException('Google+ profile ID was not received');
         }
 
         $profile = new Profile($accessToken);
         $profile->id = $googleProfileId;
-        $profile->email = $googleProfile["emails"][0]["value"] ?? null;
-        $profile->firstName = $googleProfile["name"]["givenName"] ?? null;
-        $profile->lastName = $googleProfile["name"]["familyName"] ?? null;
+        $profile->email = $googleProfile["emailAddresses"][0]["value"] ?? null;
+        $profile->firstName = $googleProfile["names"][0]["givenName"] ?? null;
+        $profile->lastName = $googleProfile["names"][0]["familyName"] ?? null;
 
         return $profile;
     }
